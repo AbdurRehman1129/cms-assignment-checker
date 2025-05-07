@@ -148,7 +148,7 @@ def fetch_and_store_assignments():
                 # Use Pakistan timezone (Asia/Karachi)
                 pakistan_tz = pytz.timezone('Asia/Karachi')
                 latest_html_table["html"] = modified_html
-                latest_html_table["last_updated"] = datetime.now(pakistan_tz).strftime("%Y-%m-%d %H:%M:%S PKT")
+                latest_html_table["last_updated"] = datetime.now(pakistan_tz).strftime("%Y-%m-%d %H:%M:%S PST")
                 logger.info("Assignments fetched and stored")
             else:
                 logger.warning("No HTML table extracted")
