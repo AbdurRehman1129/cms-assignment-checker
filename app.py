@@ -7,6 +7,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import logging
 import sys
+import pytz
 
 app = Flask(__name__)
 # Allow all origins for development, including localhost
@@ -144,8 +145,10 @@ def fetch_and_store_assignments():
             html_table = extract_html_table(response.text)
             if html_table:
                 modified_html = remove_submission_column(html_table)
+                # Use Pakistan timezone (Asia/Karachi)
+                pakistan_tz = pytz.timezone('Asia/Karachi')
                 latest_html_table["html"] = modified_html
-                latest_html_table["last_updated"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+                latest_html_table["last_updated"] = datetime.now(pakistan_tz).strftime("%Y-%m-%d %H:%M:%S PKT")
                 logger.info("Assignments fetched and stored")
             else:
                 logger.warning("No HTML table extracted")
