@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time CMS Assignments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto p-4">
+        <h1 class="text-2xl font-bold mb-4 text-center">CMS Assignments</h1>
+        <p id="last-updated" class="text-sm text-gray-600 mb-4 text-center"></p>
+        <div id="assignments-table" class="overflow-x-auto"></div>
+    </div>
+
+    <script>
+        async function fetchAssignments() {
+            try {
+                const response = await fetch('https://your-heroku-app-name.herokuapp.com/api/assignments');
+                const data = await response.json();
+                document.getElementById('assignments-table').innerHTML = data.html || '<p class="text-red-500">No assignments found.</p>';
+                document.getElementById('last-updated').textContent = `Last updated: ${data.last_updated || 'Never'}`;
+            } catch (error) {
+                console.error('Error fetching assignments:', error);
+                document.getElementById('assignments-table').innerHTML = '<p class="text-red-500">Error loading assignments.</p>';
+            }
+        }
+
+        // Fetch assignments immediately and then every minute
+        fetchAssignments();
+        setInterval(fetchAssignments, 60000);
+    </script>
+</body>
+</html>
