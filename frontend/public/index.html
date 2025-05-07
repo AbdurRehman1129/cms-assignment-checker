@@ -16,7 +16,7 @@
     <script>
         async function fetchAssignments() {
             try {
-                const response = await fetch('https://your-heroku-app-name.herokuapp.com/api/assignments');
+                const response = await fetch('http://cms-assignment-checker-c2c141190d60.herokuapp.com/api/assignments');
                 const data = await response.json();
                 document.getElementById('assignments-table').innerHTML = data.html || '<p class="text-red-500">No assignments found.</p>';
                 document.getElementById('last-updated').textContent = `Last updated: ${data.last_updated || 'Never'}`;
